@@ -16,7 +16,7 @@ public class Main {
     public static void main(String[] args) throws IOException, ValidationException {
         Scanner scan = new Scanner(System.in);
 
-        System.out.println("***** Ingresar una opcion *****");
+        System.out.println("******* Ingresar una opcion *******");
         System.out.println("1. Crear construccion");
         System.out.println("2. Listar construcciones");
         System.out.println("3. Salir");
@@ -32,7 +32,8 @@ public class Main {
                 listarConstrucciones();
                 break;
             case 3:
-                System.out.println("Fin.");
+                System.out.println("******* Proceso Finalizado *******");
+                break;
             default:
                 System.out.println("La opcion no se encuentra disponible.");
                 main(null);
@@ -45,7 +46,7 @@ public class Main {
 
 
     public static void crearConstruccion() throws IOException, ValidationException {
-        System.out.println("***** Seleccionar tipo de construccion *****");
+        System.out.println("******* Seleccionar tipo de construccion *******");
         System.out.println("1. Edificio");
         System.out.println("2. Casa");
 
@@ -53,11 +54,11 @@ public class Main {
         int opcion = scan.nextInt();
         switch (opcion) {
             case 1:
-                System.out.println("Creando edificio");
+                System.out.println("Entrando al menu para cargar los datos del nuevo edificio");
                 cargarNuevoEdificio();
                 break;
             case 2:
-                System.out.println("Creando casa");
+                System.out.println("Entrando al menu para cargar los datos de la nueva casa");
                 cargarNuevaCasa();
                 break;
             default:
@@ -80,16 +81,16 @@ public class Main {
         System.out.println("Superficie M2: ");
         double superficie = scan.nextDouble();
 
-        System.out.println("Superficie M2: ");
+        System.out.println("precioPorM2: ");
         double precioPorM2 = scan.nextDouble();
 
-        System.out.println("Precio por M2: ");
+        System.out.println("Ambientes: ");
         int ambientes = scan.nextInt();
 
-        System.out.println("Orientacion: ");
+        System.out.println("Orientacion: Debe ser Norte, Sur, Este u Oeste ");
         String orientacion = scan.next();
 
-        Casas casa = new Casas(superficie, "", precioPorM2, ambientes, OrientacionENUM.getByDescription(orientacion));
+        Casas casa = new Casas(superficie, "", precioPorM2, ambientes, OrientacionENUM.getByDescription(orientacion.toUpperCase()));
         crearFile(null, casa);
     }
 

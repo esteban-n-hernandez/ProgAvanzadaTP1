@@ -23,7 +23,7 @@ public enum OrientacionENUM {
                 return value;
             }
         }
-        throw new ValidationException("El codigo: " + description);
+        throw new ValidationException("El codigo: " + description + " es incorrecto");
     }
 
     public String getKey() {
