@@ -21,10 +21,10 @@ public class Casas extends Construcciones implements Serializable {
 
     @Override
     public void mostrarCaracteristicas() {
-
         super.mostrarCaracteristicas();
-        System.out.printf("Ambientes: %s m2. Orientacion : %s", ambientes, orientacion);
-        System.out.println("Precio de la casa: " + calcularPrecioTotal(superficiePorM2, precioPorM2, ambientes));
+        System.out.println("Ambientes: " + ambientes);
+        System.out.println("Orientación: " + orientacion);
+        System.out.println("Precio de la casa: $" + calcularPrecioTotal(superficiePorM2, precioPorM2, ambientes));
     }
 
     public void updateAmbientes(int nuevosAmbientes) {

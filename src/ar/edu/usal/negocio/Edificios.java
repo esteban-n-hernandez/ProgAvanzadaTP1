@@ -15,10 +15,10 @@ public class Edificios extends Construcciones implements Serializable {
 
     @Override
     public void mostrarCaracteristicas() {
-
         super.mostrarCaracteristicas();
-        System.out.printf("Pisos: %s m2. Unidades: %s, Precio por M2: %s", pisos, unidades, precioPorM2);
-        System.out.println("Precio del edificio: " + calcularPrecioTotal(superficiePorM2, precioPorM2, unidades));
+        System.out.println("Pisos: ");
+        System.out.println("Unidades: ");
+        System.out.println("Precio del edificio: $" + calcularPrecioTotal(superficiePorM2, precioPorM2, unidades));
     }
 
     public void actualizarPisos(int nuevosPisos) {

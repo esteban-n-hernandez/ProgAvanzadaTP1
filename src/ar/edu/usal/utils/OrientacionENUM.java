@@ -1,7 +1,5 @@
 package ar.edu.usal.utils;
 
-import javax.xml.bind.ValidationException;
-
 public enum OrientacionENUM {
     NORTE("NORTE", "NORTE"),
     SUR("SUR", "SUR"),
@@ -17,22 +15,15 @@ public enum OrientacionENUM {
         this.value = value;
     }
 
-    public static OrientacionENUM getByDescription(String description) throws ValidationException {
+    public static OrientacionENUM getByDescription(String description) throws Exception {
         for (OrientacionENUM value : OrientacionENUM.values()) {
             if (value.key.equals(description)) {
                 return value;
             }
         }
-        throw new ValidationException("El codigo: " + description + " es incorrecto");
+        throw new Exception();
     }
 
-    public String getKey() {
-        return key;
-    }
-
-    public String getValue() {
-        return value;
-    }
 }
 
 

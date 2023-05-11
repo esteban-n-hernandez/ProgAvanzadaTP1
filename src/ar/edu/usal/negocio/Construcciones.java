@@ -17,7 +17,9 @@ public abstract class Construcciones implements Serializable {
     }
 
     public void mostrarCaracteristicas() {
-        System.out.printf("Superfie por M2: %s m2. Direccion: %s, Precio por M2: %s", superficiePorM2, direccion, precioPorM2);
+        System.out.println("Superfie por M2:" + superficiePorM2);
+        System.out.println("Direccion: " + direccion);
+        System.out.println("Precio por M2: $" + precioPorM2);
     }
 
 
