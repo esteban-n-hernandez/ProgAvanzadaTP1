@@ -39,5 +39,21 @@ public class Casas extends Construcciones implements Serializable {
     public Double calcularPrecioTotal(Double superficiePorM2, Double precioPorM2, int ambientes) {
         return superficiePorM2 * precioPorM2 * ambientes;
     }
+
+    public int getAmbientes() {
+        return ambientes;
+    }
+
+    public void setAmbientes(int ambientes) {
+        this.ambientes = ambientes;
+    }
+
+    public OrientacionENUM getOrientacion() {
+        return orientacion;
+    }
+
+    public void setOrientacion(OrientacionENUM orientacion) {
+        this.orientacion = orientacion;
+    }
 }
 

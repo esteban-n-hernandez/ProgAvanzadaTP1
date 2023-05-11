@@ -12,6 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+
+/*
+ * Comienza con el menu principal.
+ * Hay 3 opciones: Crear, Listar construcciones y salir.
+ * Falta agregar la de editar
+ */
+
 public class Main {
     public static void main(String[] args) throws IOException, ValidationException {
         Scanner scan = new Scanner(System.in);
@@ -19,7 +26,8 @@ public class Main {
         System.out.println("******* Ingresar una opcion *******");
         System.out.println("1. Crear construccion");
         System.out.println("2. Listar construcciones");
-        System.out.println("3. Salir");
+        System.out.println("3. Listar informacino de una construccion");
+        System.out.println("4. Salir");
 
         int opcion = scan.nextInt();
         switch (opcion) {
@@ -29,9 +37,13 @@ public class Main {
                 break;
             case 2:
                 System.out.println("Listar construcciones");
-                listarConstrucciones();
+                listarArchivosTxt();
                 break;
             case 3:
+                System.out.println("Ver informacion de una construccion");
+                cargarMenuListarContenido();
+                break;
+            case 4:
                 System.out.println("******* Proceso Finalizado *******");
                 break;
             default:
@@ -39,11 +51,6 @@ public class Main {
                 main(null);
         }
     }
-
-    private static void listarConstrucciones() {
-        System.out.println(listarArchivosTxt());
-    }
-
 
     public static void crearConstruccion() throws IOException, ValidationException {
         System.out.println("******* Seleccionar tipo de construccion *******");
@@ -71,6 +78,18 @@ public class Main {
         Edificios edificio = new Edificios(123.3, "", 123.3, 1, 1);
 
         crearFile(edificio, null);
+    }
+
+    public static void cargarMenuListarContenido() {
+        Scanner scan = new Scanner(System.in);
+
+        System.out.println("Ingresar el nombre de la construccion y la fecha que desea buscar. ");
+        System.out.println("El formato es construc_ddMMyyyy. Por ejemplo CasaNorte01012023");
+        String nombreArchivo = scan.next();
+        System.out.println("Ingresar el tipo de construccion. 1. Edificio 2.Casa");
+        String tipo = scan.next();
+
+        leerContenidoArchivo(tipo, nombreArchivo);
     }
 
 
@@ -117,37 +136,43 @@ public class Main {
 
     }
 
-    public static void leerContenidoArchivo(String nombreConstruccion) {
+    public static void leerContenidoArchivo(String tipo, String nombreConstruccion) {
         try {
             FileInputStream fileInputStream = new FileInputStream(nombreConstruccion);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
 
-            Edificios edificio = (Edificios) objectInputStream.readObject();
+            if (tipo.equalsIgnoreCase("edificio")) {
+                Edificios edificio = (Edificios) objectInputStream.readObject();
+
+                System.out.println("Información del edificio:");
+                System.out.println("Pisos: " + edificio.getPisos());
+                System.out.println("Unidades: " + edificio.getUnidades());
+            } else {
+                Casas casa = (Casas) objectInputStream.readObject();
+
+                System.out.println("Información de la casa:");
+                System.out.println("Ambientes: " + casa.getAmbientes());
+                System.out.println("Orientacion: " + casa.getOrientacion());
+            }
 
             objectInputStream.close();
             fileInputStream.close();
 
-            System.out.println("Información del edificio:");
-            System.out.println("Pisos: " + edificio.getPisos());
-            System.out.println("Unidades: " + edificio.getUnidades());
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    public static List<String> listarArchivosTxt() {
-        List<String> archivosTxt = new ArrayList<>();
-
+    public static void listarArchivosTxt() {
         File carpeta = new File(System.getProperty("user.dir"));
         File[] archivos = carpeta.listFiles();
 
         if (archivos != null) {
             for (File archivo : archivos) {
                 if (archivo.isFile() && archivo.getName().endsWith(".txt")) {
-                    archivosTxt.add(archivo.getName());
+                    System.out.println(archivo.getName());
                 }
             }
         }
-        return archivosTxt;
     }
 }
