@@ -30,7 +30,6 @@ public class Main {
         int opcion = scan.nextInt();
         switch (opcion) {
             case 1:
-                System.out.println("Crear Construccion");
                 crearConstruccion();
                 break;
             case 2:
@@ -55,22 +54,46 @@ public class Main {
         }
     }
 
-    private static void editarInformacion() {
+    private static void editarInformacion() throws Exception {
         Scanner scan = new Scanner(System.in);
         System.out.println("Ingrese el nombre de la construcción que desea editar");
         listarArchivosTxt();
         System.out.println("Nombre: ");
-        scan.next();
+        String nombreConstruccion = scan.next();
 
-        editarArchivo();
+        System.out.println("Ingresar tipo de construcción: 1. Edificio o 2. Casa");
+        String tipoConstruccion = scan.next();
 
+        if (tipoConstruccion.equals("Edificio") || tipoConstruccion.equals("1")) {
+            Edificios edificioAEditar = obtenerEdificio(nombreConstruccion);
+
+            System.out.println("Solo puede editar la cantidad de pisos o unidades.");
+
+            System.out.println("Ingrese cantidad de pisos: ");
+            edificioAEditar.actualizarPisos(scan.nextInt());
+
+            System.out.println("Ingrese cantidad de unidades: ");
+            edificioAEditar.actualizarUnidades(scan.nextInt());
+
+            crearFile(edificioAEditar, null, true, nombreConstruccion);
+
+
+        } else {
+            Casas casaAEditar = obtenerCasa(nombreConstruccion);
+
+            System.out.println("Solo puede editar la cantidad de ambientes y la orientacion.");
+
+            System.out.println("Ingresar cantidad de ambientes: ");
+            casaAEditar.updateAmbientes(scan.nextInt());
+
+            System.out.println("Ingresar nueva orientacion: ");
+            casaAEditar.updateOrientacion(OrientacionENUM.getByDescription(scan.next().toUpperCase()));
+
+            crearFile(null, casaAEditar, true, nombreConstruccion);
+
+        }
     }
 
-    //TODO Crear logica para editar el file
-    private static void editarArchivo() {
-
-        System.out.println("Construccino modificada");
-    }
 
     public static void crearConstruccion() throws Exception {
         System.out.println("******* Seleccionar tipo de construccion *******");
@@ -113,10 +136,9 @@ public class Main {
         System.out.println("Direccion: ");
         String direccion = scan.next();
 
-
         Edificios edificio = new Edificios(superficie, direccion, precioPorM2, pisos, unidades);
 
-        crearFile(edificio, null);
+        crearFile(edificio, null, false, null);
     }
 
     public static void cargarMenuListarContenido() {
@@ -152,8 +174,6 @@ public class Main {
         String direccion = scan.next();
 
         Casas casa = new Casas(superficie, direccion, precioPorM2, ambientes, OrientacionENUM.getByDescription(orientacion.toUpperCase()));
-        crearFile(null, casa);
+        crearFile(null, casa, false, null);
     }
-
-
 }

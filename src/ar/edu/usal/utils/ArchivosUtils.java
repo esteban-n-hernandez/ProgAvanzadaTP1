@@ -12,26 +12,38 @@ import java.util.Scanner;
 public class ArchivosUtils {
 
 
-    public static void crearFile(Edificios edificio, Casas casa) throws IOException {
+    /*
+     * Se crea el archivo txt. Pide ingresar solo el nombre de archivo. EL sistema le carga la fecha y el tipo de dato automaticamente.
+     */
+    public static void crearFile(Edificios edificio, Casas casa, boolean esEdicion, String nombreConstruccion) throws IOException {
         Scanner scan = new Scanner(System.in);
-        System.out.println("Ingresar nombre del edificio o casa");
-        if (scan.hasNext()) {
-            String fileName = scan.next() + "_" + DateUtils.formatFecha() + ".txt";
 
-            FileOutputStream fileOutputStream = new FileOutputStream(fileName);
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+        if (!esEdicion) {
+            System.out.println("Ingresar nombre del edificio o casa");
+            if (scan.hasNext()) {
+                String fileName = scan.next() + "_" + DateUtils.formatFecha() + ".txt";
 
-            if (edificio != null) {
-                objectOutputStream.writeObject(edificio);
-            } else {
-                objectOutputStream.writeObject(casa);
+                FileOutputStream fileOutputStream = new FileOutputStream(fileName);
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+
+                if (edificio != null) {
+                    objectOutputStream.writeObject(edificio);
+                } else {
+                    objectOutputStream.writeObject(casa);
+                }
+
+                objectOutputStream.close();
+                fileOutputStream.close();
+
+                System.out.println("El objeto se ha guardado en el archivo " + fileName);
             }
-
-            objectOutputStream.close();
-            fileOutputStream.close();
-
-            System.out.println("El objeto Edificio se ha guardado en el archivo " + fileName);
+        } else {
+            FileOutputStream fileOutputStream = new FileOutputStream(nombreConstruccion + ".txt");
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            objectOutputStream.writeObject(edificio);
+            System.out.println("Se ha editado el archivo " + nombreConstruccion);
         }
+
 
     }
 
@@ -48,12 +60,12 @@ public class ArchivosUtils {
             if (tipo.equalsIgnoreCase("edificio") || tipo.equals("1")) {
                 Edificios edificio = (Edificios) objectInputStream.readObject();
 
-                System.out.println("Información del edificio:");
+                System.out.println("Información del edificio " + nombreConstruccion);
                 edificio.mostrarCaracteristicas();
             } else {
                 Casas casa = (Casas) objectInputStream.readObject();
 
-                System.out.println("Información de la casa:");
+                System.out.println("Información de la casa " + nombreConstruccion);
                 casa.mostrarCaracteristicas();
             }
 
@@ -81,7 +93,16 @@ public class ArchivosUtils {
         }
     }
 
-    public static void editarFile() {
 
+    public static Casas obtenerCasa(String nombreConstruccion) throws IOException, ClassNotFoundException {
+        FileInputStream fileInputStream = new FileInputStream(nombreConstruccion + ".txt");
+        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+        return (Casas) objectInputStream.readObject();
+    }
+
+    public static Edificios obtenerEdificio(String nombreConstruccion) throws IOException, ClassNotFoundException {
+        FileInputStream fileInputStream = new FileInputStream(nombreConstruccion + ".txt");
+        ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+        return (Edificios) objectInputStream.readObject();
     }
 }
