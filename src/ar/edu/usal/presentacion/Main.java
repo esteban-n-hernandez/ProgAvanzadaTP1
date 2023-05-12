@@ -161,16 +161,16 @@ public class Main {
         System.out.println("Superficie M2: ");
         double superficie = scan.nextDouble();
 
-        System.out.println("precioPorM2: ");
+        System.out.println("Precio por M2: ");
         double precioPorM2 = scan.nextDouble();
 
         System.out.println("Ambientes: ");
         int ambientes = scan.nextInt();
 
-        System.out.println("Orientacion: Debe ser Norte, Sur, Este u Oeste ");
+        System.out.println("Orientacion: Debe ser Norte, Sur, Este u Oeste:  ");
         String orientacion = scan.next();
 
-        System.out.println("Orientacion: Debe ser Norte, Sur, Este u Oeste ");
+        System.out.println("Direccion: ");
         String direccion = scan.next();
 
         Casas casa = new Casas(superficie, direccion, precioPorM2, ambientes, OrientacionENUM.getByDescription(orientacion.toUpperCase()));
