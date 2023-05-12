@@ -13,7 +13,7 @@ Temas evaluados:
 -> API Stream.
 -> Properties.
 -> Uso de archivos planos (String).
--
+
 
 Práctica:
 Construir la clase Construcciones, la cual no podrá instanciarse, con los siguientes datos 
@@ -51,8 +51,7 @@ cada uno de ellos)
 ∙ mostrarCaracteristicas, que deberá mostrar los datos miembro de la clase base (utilizando la 
 función de la clase base) y los datos miembro propios dando formato y titulando cada dato. 
 Además se mostrará el precio de la casa. 
-Construir una aplicación de consola que al menos se distribuyan las clases que considere 
-
+Construir una aplicación de consola que al menos se distribuyan las clases que considere
 necesario crear en los siguientes paquetes negocio, persistencia y presentación. El programa 
 deberá: 
 ∙ Poder ingresar nuevas construcciones sin perder las ya ingresadas con anterioridad.
