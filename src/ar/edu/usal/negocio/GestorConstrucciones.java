@@ -1,13 +1,16 @@
 package ar.edu.usal.negocio;
 
 import ar.edu.usal.persistencia.Casas;
+import ar.edu.usal.persistencia.Construcciones;
 import ar.edu.usal.persistencia.Edificios;
 import ar.edu.usal.utils.DateUtils;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 import static ar.edu.usal.utils.ArchivosUtils.crearFile;
 import static ar.edu.usal.utils.ArchivosUtils.leerContenidoArchivo;
@@ -32,14 +35,6 @@ public class GestorConstrucciones {
     public static void crearCasa(ArrayList<Object> construccionesList) throws Exception {
         Casas casa = GestorCasas.cargarNuevaCasa();
         construccionesList.add(casa);
-    }
-
-    //Obtener la informacion de una construccion.
-    public static void cargarMenuListarContenido() {
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Ingresar el nombre de la construccion y la fecha que desea buscar. \nEl formato es construc_ddMMyyyy. Por ejemplo CasaNorte_01012023.");
-        String nombreArchivo = scan.next();
-        leerContenidoArchivo(nombreArchivo);
     }
 
     /*
@@ -87,6 +82,41 @@ public class GestorConstrucciones {
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("El archivo no existe.");
         }
+    }
+
+
+    //TODO No esta finalizado
+    /**
+     * Obtener los precios de cada construccion.
+     */
+    public static void obtenerPrecioConstrucciones() throws IOException, ClassNotFoundException {
+        File carpeta = new File(System.getProperty("user.dir"));
+        File[] archivos = carpeta.listFiles();
+
+        if (archivos != null) {
+            for (File archivo : archivos) {
+                if (archivo.isFile() && archivo.getName().endsWith(".txt")) {
+                    System.out.println(". " + archivo.getName().replace(".txt", ""));
+
+                    FileInputStream fileInputStream = new FileInputStream(archivo);
+                    ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+
+                    List<Object> list = (List<Object>) objectInputStream.readObject();
+                    HashMap<String, Double> precioList = new HashMap<>();
+
+                    for (Object o : list) {
+                        if (o instanceof Casas) {
+                            precioList.put(((Casas) o).getDireccion(), ((Casas) o).getPrecioPorM2());
+                        } else {
+                            precioList.put(((Edificios) o).getDireccion(), ((Edificios) o).getPrecioPorM2());
+                        }
+                    }
+                    System.out.println(precioList);
+                }
+            }
+        }
+
+
     }
 
 

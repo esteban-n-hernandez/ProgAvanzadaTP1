@@ -31,4 +31,20 @@ public abstract class Construcciones implements Serializable {
     public void updatePrecio(double nuevoPrecio) {
         precioPorM2 = nuevoPrecio;
     }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public Double getPrecioPorM2() {
+        return precioPorM2;
+    }
+
+    public void setPrecioPorM2(Double precioPorM2) {
+        this.precioPorM2 = precioPorM2;
+    }
 }

@@ -36,6 +36,10 @@ public class MenuConstrucciones {
                 GestorConstrucciones.crearFile(construccionesList);
                 Main.main(null);
                 break;
+            case 4:
+                GestorConstrucciones.obtenerPrecioConstrucciones();
+                Main.main(null);
+                break;
             default:
                 System.out.println("Opcion incorrecta. Debe ingresar un numero del listado.");
                 menuCrear(construccionesList, scan);
@@ -74,7 +78,7 @@ public class MenuConstrucciones {
     private static int validarInputEntero(Scanner scan) {
         int number;
         do {
-            System.out.println("¿Que desea agregar? \n 1. Edificio \n 2. Casa \n 3. Registrar construccion.");
+            System.out.println("¿Que desea agregar? \n 1. Edificio \n 2. Casa \n 3. Registrar construccion. \n 4. Obtener precios.");
             while (!scan.hasNextInt()) {
                 System.out.println("Input incorrecto. Debe ingresar un numero.");
                 scan.next();
